@@ -1,0 +1,38 @@
+<!doctype html>
+<title>Клиники Израиля</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+<div class="container">
+
+<ol class="breadcrumb">
+    <li><a href="{% url "index" %}">клиники Израиля</a></li>
+{% if direction %}
+    <li class="active">{{ direction }}</li>
+{% endif %}
+</ol>
+
+<ul class="media-list">
+{% for clinic in clinics %}
+    <li class="media">
+        <div class="media-left">
+            <img src="{{ clinic.get_image_url }}" class="media-object">
+        </div>
+        <div class="media-body">
+            <h4 class="media-heading">{{ clinic.title }}</h4>
+            <article>{{ clinic.text }}</article>
+            <div>
+{% for dir in clinic.directions.all %}
+    <a href="{% url "direction" dir.id %}" class="label label-default">{{ dir }}</a>
+{% endfor %}
+
+            </div>
+        </div>
+    </li>
+{% endfor %}
+</ul>
+
+</div>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
